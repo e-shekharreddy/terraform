@@ -1,20 +1,18 @@
 resource "aws_instance" "roboshop" {
-  # count = 10
-  count = length(var.instances)
   ami           = "ami-0220d79f3f480ecf5"
   instance_type = "t3.micro"
   vpc_security_group_ids = [aws_security_group.allow_tls.id]
 
 
-  tags = {
-    Name = var.instances[count.index]
-    Project = "roboshop"
-
+  tags = merge(
+    var.common_tags,
+    var.ec2_tags
+    )
   }
-}
+
 
 resource "aws_security_group"  "allow_tls" {
-  name = "allow-all-roboshop" # this is for aws 
+  name = "allow-all-trafic" # this is for aws 
   description = "Allow TLS inbound and all outbound traffic"
  
 
@@ -32,8 +30,8 @@ resource "aws_security_group"  "allow_tls" {
     cidr_blocks      = ["0.0.0.0/0"]
     ipv6_cidr_blocks = ["::/0"]
   }
-  tags = {
-    Name = "allow-all-terraform"
-  }
-
+  tags = merge (
+    var.common_tags,
+    var.sg_tags
+  )
 }
