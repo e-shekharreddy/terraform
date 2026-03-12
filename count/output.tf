@@ -1,7 +1,7 @@
-# output "roboshop_instances" {
-#     value = aws_instance.roboshop
-#     description = "description"
-# }
+output "roboshop_instances" {
+    value = aws_instance.roboshop
+    description = "description"
+}
 
 output "fruits_name" {
     value = var.fruits
