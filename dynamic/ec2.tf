@@ -33,7 +33,6 @@ resource "aws_security_group"  "allow_tls" {
         cidr_blocks      = ingress.value.cidr_blocks
         description = ingress.value.description
     }
-    
   }
   tags = {
     Name = "allow-all-terraform"
